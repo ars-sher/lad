@@ -1,0 +1,26 @@
+[all-hosts:children]
+docker
+ansible-master
+
+[all-hosts:vars]
+ssh_port_to_expose=2222
+
+#n0x - real name of the host x; n0xhost - ansible alias for physical hosts
+[docker-host-nodes]
+#n01host ansible_ssh_port=22 ansible_ssh_host=n01
+#n02host ansible_ssh_port=22 ansible_ssh_host=n02
+#n03host ansible_ssh_port=22 ansible_ssh_host=n03
+#n04host ansible_ssh_port=22 ansible_ssh_host=n04
+#n05host ansible_ssh_port=22 ansible_ssh_host=n05
+#n06host ansible_ssh_port=22 ansible_ssh_host=n06
+lochost ansible_ssh_port=22 ansible_ssh_user=ars ansible_ssh_host=localhost
+
+[docker-containers]
+#locdock ansible_ssh_port="{{ ssh_port_to_expose }}"	ansible_ssh_user=root host_key_checking=False ansible_ssh_host=localhost
+
+[docker:children]
+docker-host-nodes
+docker-containers
+
+[ansible-master]
+localhost ansible_ssh_port=22
