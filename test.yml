@@ -40,3 +40,6 @@
       apt: name=ganglia-monitor
     - name: check ssh
       debug: var=ansible_ssh_port
+# add private key to containers
+    - copy: src=~/.ssh/id_rsa dest=/root/.ssh/id_rsa
+    - command: chmod 700 /root/.ssh/id_rsa

@@ -13,7 +13,7 @@ ssh_port_to_expose=2222
 #n04host ansible_ssh_port=22 ansible_ssh_host=n04
 #n05host ansible_ssh_port=22 ansible_ssh_host=n05
 #n06host ansible_ssh_port=22 ansible_ssh_host=n06
-lochost ansible_ssh_port=22 ansible_ssh_user=ars ansible_ssh_host=localhost
+lochost ansible_ssh_port=22 ansible_ssh_host=localhost
 
 [docker-containers]
 #locdock ansible_ssh_port="{{ ssh_port_to_expose }}"	ansible_ssh_user=root host_key_checking=False ansible_ssh_host=localhost
