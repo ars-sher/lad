@@ -1,5 +1,3 @@
-{% for host in groups['docker-containers'] %}
-   {{ host }}
-   {% endfor %}
-
-{{hostvars}}
+{% for cont in docker_containers %}
+    {{ cont.docker_networksettings }}
+    {% endfor %}

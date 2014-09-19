@@ -21,9 +21,9 @@
       pip: name=docker-py
     - copy: src=/tmp/Dockerfile dest=/tmp/Dockerfile
     - name: build base image
-      docker_image: name="ubuntu/ssh" path=/tmp/ tag=14.04 state=present
+      docker_image: name="ubuntu/sshjdk" path=/tmp/ tag=14.04 state=present
     - name: run container
-      docker: state=running image=ubuntu/ssh:14.04 net=bridge ports=2222 count=3
+      docker: state=running image=ubuntu/sshjdk:14.04 net=bridge ports=2222 count=3
     - name: Get facts about launched docker containers
       docker_facts:
 # add created containers to [docker-containers]
@@ -31,15 +31,29 @@
       add_host: hostname={{item.key}} ansible_ssh_host=172.17.42.1 ansible_ssh_port={{item.value.docker_ports[0].PublicPort}} ansible_ssh_user=root groups=docker-containers
       when: item.value.docker_state.Running == True
       with_dict: docker_containers
+    - name: get ips
+      debug: var=item.value.docker_networksettings.IPAddress
+      when: item.value.docker_state.Running == True
+      with_dict: docker_containers
 
 # check added hosts entries
 #    - template: src=docker_containers_tmpl dest=/tmp/docker_containers_result
 - hosts: docker-containers
   tasks:
-    - name: install ganglia-monitor
-      apt: name=ganglia-monitor
+    #    - name: install ganglia-monitor
+    #      apt: name=ganglia-monitor
     - name: check ssh
       debug: var=ansible_ssh_port
 # add private key to containers
     - copy: src=~/.ssh/id_rsa dest=/root/.ssh/id_rsa
     - command: chmod 700 /root/.ssh/id_rsa
+#    - copy: src=~/Downloads/infinispan-server-6.0.2.Final dest=/root/infinispan-server-6.0.2.Final
+    
+#infinispan
+    - name: install unzip
+      apt: name=unzip
+#    - shell: wget -P /root/ http://downloads.jboss.org/infinispan/6.0.2.Final/infinispan-server-6.0.2.Final-bin.zip
+#    - unarchive: src=/root/infinispan-server-6.0.2.Final-bin.zip dest=/root/ copy=no
+#    - shell: rm /root/infinispan-server-6.0.2.Final-bin.zip 
+    - copy: src=~/infinispan-conf/clustered.xml dest=infinispan-server-6.0.2.Final/standalone/configuration/clustered.xml
+

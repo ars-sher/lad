@@ -1,8 +1,7 @@
 FROM ubuntu:14.04
 MAINTAINER Oleg Borisenko al@somestuff.ru
 
-RUN apt-get update && apt-get install -y openssh-server && sed -i "s/Port 22/Port {{ ssh_port_to_expose }}/g" /etc/ssh/sshd_config && sed -i "s/UsePAM yes/UsePam no/g" /etc/ssh/sshd_config && echo "UseDNS no" >> /etc/ssh/sshd_config && sed -i "s/LogLevel INFO/LogLevel VERBOSE/g" etc/ssh/sshd_config && service ssh restart
-RUN service rsyslog restart
+RUN apt-get update && apt-get install -y openssh-server && sed -i "s/Port 22/Port {{ ssh_port_to_expose }}/g" /etc/ssh/sshd_config && sed -i "s/UsePAM yes/UsePam no/g" /etc/ssh/sshd_config && echo "UseDNS no" >> /etc/ssh/sshd_config && sed -i "s/LogLevel INFO/LogLevel VERBOSE/g" etc/ssh/sshd_config && service ssh restart && apt-get install -y openjdk-7-jre
 #RUN echo 'root:pass' | chpasswd
 RUN mkdir /root/.ssh && chmod 0700 /root/.ssh/ && echo "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" >> /root/.ssh/authorized_keys
 EXPOSE {{ ssh_port_to_expose }}
