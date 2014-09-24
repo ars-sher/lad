@@ -23,10 +23,12 @@
     - name: build base image
       docker_image: name="ubuntu/sshjdk" path=/tmp/ tag=14.04 state=present
     - name: run container
+    #this should be changed in non-local mode: net=host only
       docker: state=running image=ubuntu/sshjdk:14.04 net=bridge ports=2222 count=3
     - name: Get facts about launched docker containers
       docker_facts:
-# add created containers to [docker-containers]
+    # add created containers to [docker-containers]
+    # this should be changed in non-local mode: we don't need to add containers to hosts
     - name: add containers to [docker-containers] 
       add_host: hostname={{item.key}} ansible_ssh_host=172.17.42.1 ansible_ssh_port={{item.value.docker_ports[0].PublicPort}} ansible_ssh_user=root groups=docker-containers
       when: item.value.docker_state.Running == True
@@ -36,14 +38,15 @@
       when: item.value.docker_state.Running == True
       with_dict: docker_containers
 
-# check added hosts entries
-#    - template: src=docker_containers_tmpl dest=/tmp/docker_containers_result
+    # check added hosts entries
+    #    - template: src=docker_containers_tmpl dest=/tmp/docker_containers_result
 - hosts: docker-containers
   roles:
     - infinispan
   tasks:
     - name: check ssh
       debug: var=ansible_ssh_port
-# add private key to containers
+    # add private key to containers
+    # this should be changed in non-local mode: ssh between containers works
     - copy: src=~/.ssh/id_rsa dest=/root/.ssh/id_rsa
     - command: chmod 700 /root/.ssh/id_rsa

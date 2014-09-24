@@ -6,6 +6,7 @@ ansible-master
 ssh_port_to_expose=2222
 
 #n0x - real name of the host x; n0xhost - ansible alias for physical hosts
+#this should be changed for non-local use
 [docker-host-nodes]
 #n01host ansible_ssh_port=22 ansible_ssh_host=n01
 #n02host ansible_ssh_port=22 ansible_ssh_host=n02
@@ -15,6 +16,7 @@ ssh_port_to_expose=2222
 #n06host ansible_ssh_port=22 ansible_ssh_host=n06
 lochost ansible_ssh_port=22 ansible_ssh_host=localhost
 
+#this should be changed for non-local use
 [docker-containers]
 #locdock ansible_ssh_port="{{ ssh_port_to_expose }}"	ansible_ssh_user=root host_key_checking=False ansible_ssh_host=localhost
 
