@@ -149,10 +149,16 @@
                 <protocol type="RSVP"/>
             </stack>
             <stack name="tcp">
-                <transport type="TCP" socket-binding="jgroups-tcp"/>
-				<protocol type="MPING" socket-binding="jgroups-mping"/>
+                <transport type="TCP" >
+					<property name="bind_addr">GLOBAL</property>
+				</transport>
+				<protocol type="MPING" >
+					<property name="bind_addr">GLOBAL</property>
+				</protocol> 
                 <protocol type="MERGE2"/>
-                <protocol type="FD_SOCK" socket-binding="jgroups-tcp-fd"/>
+                <protocol type="FD_SOCK">
+					<property name="bind_addr">GLOBAL</property>
+				</protocol>
                 <protocol type="FD"/>
                 <protocol type="VERIFY_SUSPECT"/>
                 <protocol type="pbcast.NAKACK">
@@ -232,11 +238,12 @@
     </profile>
     <interfaces>
         <interface name="management">
-            <inet-address value="${jboss.bind.address.management:127.0.0.1}"/>
+            <!-- <inet-address value="${jboss.bind.address.management:127.0.0.1}"/> -->
+            <any-address/>
         </interface>
         <interface name="public">
-	  <!-- <inet-address value="${jboss.bind.address:127.0.0.1}"/> -->
-	    <any-address/>
+			<!-- <inet-address value="${jboss.bind.address:127.0.0.1}"/> -->
+			<any-address/>
         </interface>
     </interfaces>
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
@@ -247,11 +254,13 @@
         <socket-binding name="hotrod" port="11222"/>
         <socket-binding name="http" port="8080"/>
         <socket-binding name="https" port="8443"/>
-        <socket-binding name="jgroups-mping" port="0" multicast-address="${jboss.default.multicast.address:234.99.54.14}" multicast-port="45700"/>
-        <socket-binding name="jgroups-tcp" port="7600"/>
-        <socket-binding name="jgroups-tcp-fd" port="57600"/>
-        <socket-binding name="jgroups-udp" port="55200" multicast-address="${jboss.default.multicast.address:234.99.54.14}" multicast-port="45688"/>
-        <socket-binding name="jgroups-udp-fd" port="54200"/>
+        <!--
+        <socket-binding name="jgroups-mping" interface="public" port="0" multicast-address="${jboss.default.multicast.address:234.99.54.14}" multicast-port="45700"/>
+        <socket-binding name="jgroups-tcp" interface="public" port="7600"/>
+        <socket-binding name="jgroups-tcp-fd" interface="public" port="57600"/>
+         -->
+        <socket-binding name="jgroups-udp" interface="public" port="55200" multicast-address="${jboss.default.multicast.address:234.99.54.14}" multicast-port="45688"/>
+        <socket-binding name="jgroups-udp-fd" interface="public" port="54200"/>
         <socket-binding name="memcached" port="11211"/>
         <socket-binding name="modcluster" port="0" multicast-address="224.0.1.115" multicast-port="23364"/>
         <socket-binding name="remoting" port="4447"/>
