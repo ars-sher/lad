@@ -5,5 +5,5 @@
 - shell: wget -P /root/ http://downloads.jboss.org/infinispan/6.0.2.Final/infinispan-server-6.0.2.Final-bin.zip
 - unarchive: src=/root/infinispan-server-6.0.2.Final-bin.zip dest=/root/ copy=no
 - shell: rm /root/infinispan-server-6.0.2.Final-bin.zip 
-- copy: src=~/lad/infinispan-conf/clustered.xml dest=infinispan-server-6.0.2.Final/standalone/configuration/clustered.xml
+- copy: src=~/lad/infinispan-conf/clustered.xml dest=/root/infinispan-server-6.0.2.Final/standalone/configuration/clustered.xml
 

@@ -149,16 +149,12 @@
                 <protocol type="RSVP"/>
             </stack>
             <stack name="tcp">
-                <transport type="TCP" >
+                <transport type="TCP">
 					<property name="bind_addr">GLOBAL</property>
 				</transport>
-				<protocol type="MPING" >
-					<property name="bind_addr">GLOBAL</property>
-				</protocol> 
+				<protocol type="MPING"/>
                 <protocol type="MERGE2"/>
-                <protocol type="FD_SOCK">
-					<property name="bind_addr">GLOBAL</property>
-				</protocol>
+                <protocol type="FD_SOCK"/>
                 <protocol type="FD"/>
                 <protocol type="VERIFY_SUSPECT"/>
                 <protocol type="pbcast.NAKACK">
@@ -253,12 +249,7 @@
         <socket-binding name="ajp" port="8009"/>
         <socket-binding name="hotrod" port="11222"/>
         <socket-binding name="http" port="8080"/>
-        <socket-binding name="https" port="8443"/>
-        <!--
-        <socket-binding name="jgroups-mping" interface="public" port="0" multicast-address="${jboss.default.multicast.address:234.99.54.14}" multicast-port="45700"/>
-        <socket-binding name="jgroups-tcp" interface="public" port="7600"/>
-        <socket-binding name="jgroups-tcp-fd" interface="public" port="57600"/>
-         -->
+        <socket-binding name="https" port="8443"/> 
         <socket-binding name="jgroups-udp" interface="public" port="55200" multicast-address="${jboss.default.multicast.address:234.99.54.14}" multicast-port="45688"/>
         <socket-binding name="jgroups-udp-fd" interface="public" port="54200"/>
         <socket-binding name="memcached" port="11211"/>
