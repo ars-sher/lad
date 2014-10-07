@@ -1,0 +1,16 @@
+---
+
+- name: check ssh
+  debug: var=ansible_ssh_port
+- name: install python-apt
+  apt: name=python-apt state=present
+- name: get curl
+  apt: name=curl state=present
+- name: download and install pip
+  shell: curl https://bootstrap.pypa.io/get-pip.py | sudo python
+- name: install docker-py
+  pip: name=docker-py
+- copy: src=/tmp/Dockerfile dest=/tmp/Dockerfile
+- name: build base image
+  docker_image: name="ubuntu/sshjdk" path=/tmp/ tag=14.04 state=present
+

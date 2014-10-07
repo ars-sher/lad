@@ -1,0 +1,4 @@
+---
+
+- template: src=./base_system dest=/tmp/Dockerfile
+

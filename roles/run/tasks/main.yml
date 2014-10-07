@@ -1,0 +1,25 @@
+---
+
+- name: run container
+  #this should be changed in non-local mode: net=host only
+  docker: state=running hostname={{ container_name }} name={{ container_name }} image=ubuntu/sshjdk:14.04 net=bridge ports=2222 count=1 privileged=yes
+
+- name: Get facts about launched docker containers
+  docker_facts:
+
+- name: hello list
+  fail: msg="container already running"
+  when: docker_containers.{{ item }} is defined
+  with_items: container_names
+
+  # the rest of this file should be removed in non-local mode: we don't need to add containers to hosts
+  # add created containers to [docker-containers]
+- name: add containers to [docker-containers] 
+  add_host: hostname={{item.key}} ansible_ssh_host=172.17.42.1 ansible_ssh_port={{item.value.docker_ports[0].PublicPort}} ansible_ssh_user=root groups=docker-containers
+  when: item.value.docker_state.Running == True
+  with_dict: docker_containers
+- name: get ips
+  debug: var=item.value.docker_networksettings.IPAddress
+  when: item.value.docker_state.Running == True
+  with_dict: docker_containers
+

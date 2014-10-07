@@ -8,6 +8,8 @@
 
 - hosts: docker-host-nodes
   sudo: yes
+  roles:
+    - build
   tasks:
     - name: check ssh
       debug: var=ansible_ssh_port
@@ -22,6 +24,8 @@
     - copy: src=/tmp/Dockerfile dest=/tmp/Dockerfile
     - name: build base image
       docker_image: name="ubuntu/sshjdk" path=/tmp/ tag=14.04 state=present
+
+
     - name: run container
     #this should be changed in non-local mode: net=host only
       docker: state=running image=ubuntu/sshjdk:14.04 net=bridge ports=2222 count=2 privileged=yes
@@ -40,6 +44,7 @@
 
     # check added hosts entries
     #    - template: src=docker_containers_tmpl dest=/tmp/docker_containers_result
+
 - hosts: docker-containers
   roles:
     - infinispan

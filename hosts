@@ -2,9 +2,6 @@
 docker
 ansible-master
 
-[all-hosts:vars]
-ssh_port_to_expose=2222
-
 #n0x - real name of the host x; n0xhost - ansible alias for physical hosts
 #this should be changed for non-local use
 [docker-host-nodes]

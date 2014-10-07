@@ -1,0 +1,7 @@
+---
+
+- hosts: docker-host-nodes
+  sudo: yes
+  roles:
+    - shutdown
+  

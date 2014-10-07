@@ -1,0 +1,6 @@
+---
+
+- hosts: ansible-master
+  sudo: yes
+  roles:
+    - create_dockerfile
