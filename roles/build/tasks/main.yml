@@ -1,7 +1,5 @@
 ---
 
-- name: check ssh
-  debug: var=ansible_ssh_port
 - name: install python-apt
   apt: name=python-apt state=present
 - name: get curl

@@ -2,7 +2,6 @@
 
 - name: Get facts about launched docker containers
   docker_facts:
-
 - name: check running containers
   fail: msg="container {{ item }} already running. Stop it first!"
   when: docker_containers.{{ item }} is defined and docker_containers.{{ item }}.docker_state.Running
