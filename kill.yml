@@ -1,7 +1,8 @@
 ---
 
+#accepts one argument - container name
 - hosts: docker-host-nodes
   sudo: yes
   roles:
-    - shutdown
+    - kill
   

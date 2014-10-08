@@ -3,5 +3,7 @@
 ssh_port_to_expose: 2222
 container_names:
   - hello
-  - pullo
   - sober_tesla
+  - drunk_tesla
+
+#node01: {name: 'hello'}

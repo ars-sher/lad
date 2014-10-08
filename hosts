@@ -22,4 +22,4 @@ docker-host-nodes
 docker-containers
 
 [ansible-master]
-localhost ansible_ssh_port=22
+localhost ansible_ssh_port=22 node=node01

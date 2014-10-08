@@ -1,0 +1,5 @@
+---
+
+- name: shutdown docker
+  docker: state=stopped name={{ container_name }} image=ubuntu/sshjdk:14.04
+

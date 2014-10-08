@@ -1,6 +1,0 @@
----
-
-- name: shutdown docker
-  #this should be changed in non-local mode: net=host only
-  docker: state=absent hostname={{ container_name }} image=ubuntu/sshjdk:14.04
-
