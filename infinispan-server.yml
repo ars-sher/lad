@@ -1,0 +1,6 @@
+---
+
+- hosts: docker-containers
+  roles:
+    - infinispan-server
+  

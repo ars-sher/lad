@@ -6,4 +6,5 @@
 - unarchive: src=/root/infinispan-server-6.0.2.Final-bin.zip dest=/root/ copy=no
 - shell: rm /root/infinispan-server-6.0.2.Final-bin.zip 
 - copy: src=~/lad/infinispan-conf/clustered.xml dest=/root/infinispan-server-6.0.2.Final/standalone/configuration/clustered.xml
+- command: nohup /root/infinispan-server-6.0.2.Final/bin/clustered.sh >/dev/null &> /dev/null &
 
